@@ -22,7 +22,8 @@ export const CtaSection = () => {
               placeholder="Enter your email" 
               className="flex-1 h-12 text-base bg-white"
             />
-            <Button className="btn-hero h-12 px-8 group">
+            <Button className="btn-hero h-12 px-8 group"
+                    onClick={() => window.location.href = "/auth"}>
               Get Started
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
