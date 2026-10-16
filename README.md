@@ -1,73 +1,54 @@
-# Welcome to your Lovable project
+# NourBook – Your Booking Buddy
 
-## Project info
+A SaaS booking-management app for service businesses. Owners sign up, choose a subscription plan and manage customer bookings from a dashboard.
 
-**URL**: https://lovable.dev/projects/e3ef0770-c0e3-45e0-bcdf-852d75504dac
+Originally created with [Lovable](https://lovable.dev/projects/e3ef0770-c0e3-45e0-bcdf-852d75504dac); changes pushed here sync back to Lovable.
 
-## How can I edit this code?
+## Pages
 
-There are several ways of editing your application.
+| Route | Description |
+|---|---|
+| `/` | Landing page |
+| `/auth` | Sign up / sign in (Supabase auth) |
+| `/pricing` | Plans loaded from the database |
+| `/dashboard` | Revenue, customers and growth cards, recent and all bookings, customer management, subscription and business settings |
 
-**Use Lovable**
+## Plans (seeded by the migration)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e3ef0770-c0e3-45e0-bcdf-852d75504dac) and start prompting.
+| Plan | Monthly | Yearly |
+|---|---|---|
+| Starter | $29 | $290 |
+| Professional | $79 | $790 |
+| Enterprise | $149 | $1,490 |
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech stack
 
-**Use your preferred IDE**
+Vite 5, React 18, TypeScript, Tailwind CSS 3, shadcn/ui (Radix), React Router 6, TanStack Query, Recharts, Zod, Supabase.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Database (Supabase / Postgres, row-level security on)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- `profiles`: one row per user, created automatically on sign-up
+- `subscription_plans`: public, read-only plan catalogue
+- `user_subscriptions`: each user's plan
+- `bookings`: `customer_name`, `customer_email`, `customer_phone`, `service_type`, `booking_date`, `status` (default `pending`), `notes`, `total_amount`. Users can only see and change their own bookings.
 
-Follow these steps:
+Migrations are in `supabase/migrations/`.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Getting started
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
+npm run build
+npm run lint
 ```
 
-**Edit a file directly in GitHub**
+Environment (`.env`, committed with the Lovable project; public/publishable values):
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+| Variable | Purpose |
+|---|---|
+| `VITE_SUPABASE_URL` | Supabase project URL |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Supabase anon/publishable key |
+| `VITE_SUPABASE_PROJECT_ID` | Supabase project id |
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/e3ef0770-c0e3-45e0-bcdf-852d75504dac) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Plans are shown as prices only; payment processing is not implemented yet.
